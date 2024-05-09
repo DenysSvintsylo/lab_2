@@ -1,0 +1,24 @@
+{
+  "name": "project-web_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.1.1",
+    "eslint": "^8.57.0",
+    "globals": "^15.1.0",
+    "sass": "^1.72.0"
+  },
+  "dependencies": {
+    "express": "^4.19.1",
+    "mysql2": "^3.9.3",
+    "node-sass": "^9.0.0",
+    "pikaday": "^1.8.2",
+    "sequelize": "^6.37.2"
+  }
+}

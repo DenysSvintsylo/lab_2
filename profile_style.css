@@ -1,0 +1,32 @@
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #fccb90;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    }
+
+    .container {
+        margin-top: -100px; /* Змініть значення за вашими потребами */
+    }
+
+    .btn-edit {
+        background-color: black;
+        color: white;
+        margin-right: 10px; /* Додайте правий відступ між кнопками */
+        margin-bottom: 10px; /* Додайте відступ між рядками */
+        width: 140px;
+        height: 60px; /* Задайте ширину кнопки */
+        font-size: 16px;
+        
+    }
+    .btn-edit:first-child {
+        margin-right: 20px; /* Збільште відступ між першою кнопкою та краєм контейнера */
+    }
+    .btn-edit:hover {
+        background-color: #333; /* Новий колір при наведенні */
+        color: white; /* Новий колір тексту при наведенні */
+    }

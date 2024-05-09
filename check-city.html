@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>check-city</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="home_styles.css">
+    <style>
+        /* Ваш CSS стилі тут */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            margin-left: 250px;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="start.html">Головна</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.html">Увійти</a></li>
+            <li class="nav-item"><a class="nav-link" href="home.html">Дім</a></li>
+            <li class="nav-item"><a class="nav-link" href="profile.html">Профіль</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    admin-menu
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="check-users.html">Пошук користувачів</a>
+                    <a class="dropdown-item" href="check-mall.html">Пошук ТЦ</a>
+                    <a class="dropdown-item" href="check-city.html">Пошук міст</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="content-container">
+    <div class="header">
+        <h2>Пошук міст</h2>
+    </div>
+    <form method="get" class="mb-4" id="searchForm">
+        <div class="form-row align-items-center">
+            <div class="col-md-8">
+                <input type="text" class="form-control" id="query" name="query" placeholder="" value="">
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-dark btn-block">Пошук</button>
+            </div>
+        </div>
+    </form>
+    <div id="users-list"></div>
+</div>
+<footer class="bg-dark text-white text-center py-3 fixed-bottom">
+    <p>2024</p>
+</footer>
+<script src="js/check-city.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="edit_prof.css">
+    <style>
+        /* Ваш CSS стилі тут */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            margin-left: 250px;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="start.html">Головна</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.html">Увійти</a></li>
+            <li class="nav-item"><a class="nav-link" href="home.html">Дім</a></li>
+            <li class="nav-item"><a class="nav-link" href="profile.html">Профіль</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Check-users
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="check-users.html">Пошук користувачів</a>
+                    <a class="dropdown-item" href="check-mall.html">Пошук ТЦ</a>
+                    <a class="dropdown-item" href="check-city.html">Пошук міст</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header  text-white">
+                Редагування Профілю
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <input type="password" id="form2Example22" class="form-control" placeholder="Ім'я" />
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" id="form2Example22" class="form-control" placeholder="Прізвище" />
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" id="form2Example22" class="form-control" placeholder="Логін" />
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" id="form2Example22" class="form-control" placeholder="Телефон" />
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" id="form2Example22" class="form-control" placeholder="Місто" />
+                    </div>
+                    <div>
+                    <a class="btn profile-button-2" href="profile.html">Зберегти зміни</a>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-white text-center py-3 fixed-bottom">
+        <p>2024</p>
+    </footer>
+    <script src="js/home.js"></script>
+</body>
+</html>
