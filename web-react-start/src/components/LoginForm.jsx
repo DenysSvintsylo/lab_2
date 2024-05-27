@@ -3,6 +3,7 @@ import "./login_style.css";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -34,7 +35,7 @@ const LoginForm = () => {
         localStorage.setItem("username", username);
         localStorage.setItem("password", password);
 
-        navigate("/profile");
+        navigate("/home");
       } else {
         console.error(response.data.message);
       }
@@ -97,13 +98,13 @@ const LoginForm = () => {
                           <p className="mb-0 me-2" style={{ marginRight: '10px'}}>
                             Немаєте аккаунту?
                           </p>
-                          <a
-                            href="register.html"
+                          <Link
+                            to="/register"
                             className="btn btn-outline-danger"
                             role="button"
                           >
                             Створити
-                          </a>
+                          </Link>
                         </div>
                       </form>
                     </div>

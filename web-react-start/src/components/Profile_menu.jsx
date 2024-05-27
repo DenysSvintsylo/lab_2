@@ -1,33 +1,32 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Profile_menu_styles.css";
+import { useNavigate, Link } from "react-router-dom";
+
 const Profile_menu = () => {
   const [userData, setUserData] = useState(null);
   const [cityData, setCityData] = useState(null);
   const [mallsData, setMallsData] = useState(null);
   const savedUsername = localStorage.getItem("username");
+  const navigate = useNavigate();
+
   const fetchData = async () => {
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/profile/${savedUsername}/`
       );
-
       setUserData(response.data);
     } catch (error) {
       console.error("Помилка при отриманні даних користувача:", error);
-      // Додайте обробку помилок, наприклад, відображення повідомлення про помилку користувачу
     }
   };
 
   const fetchMallsData = async () => {
     try {
-      const response1 = await axios.get(
-        `http://127.0.0.1:8000/malls/${userData.city}/`
-      );
+      const response1 = await axios.get(`http://127.0.0.1:8000/api/malls/`);
       setMallsData(response1.data);
     } catch (error) {
       console.error("Помилка при отриманні даних про ТЦ:", error);
-      // Обробка помилок
     }
   };
 
@@ -35,7 +34,7 @@ const Profile_menu = () => {
     if (savedUsername) {
       fetchData();
     }
-  }, [savedUsername]); // Виконувати запит лише при зміні savedEmail
+  }, [savedUsername]);
 
   useEffect(() => {
     const fetchCityData = async () => {
@@ -43,11 +42,9 @@ const Profile_menu = () => {
         const response = await axios.get(
           `http://127.0.0.1:8000/api/cities/${userData.city}/`
         );
-
         setCityData(response.data);
       } catch (error) {
         console.error("Помилка при отриманні даних про місто:", error);
-        // Додайте обробку помилок, наприклад, відображення повідомлення про помилку користувачу
       }
     };
     if (userData && userData.city) {
@@ -56,51 +53,46 @@ const Profile_menu = () => {
   }, [userData?.city]);
 
   useEffect(() => {
-    const fetchMallsData = async () => {
-      try {
-        const response1 = await axios.get(
-          `http://127.0.0.1:8000/malls/${userData.city}/`
-        );
-        setMallsData(response1.data);
-      } catch (error) {
-        console.error("Помилка при отриманні даних про ТЦ:", error);
-        // Обробка помилок
-      }
-    };
-
     if (userData && userData.city) {
       fetchMallsData();
     }
   }, [userData?.city]);
+
   const isMallInFavorites = (mallId) => {
     return userData?.fav_malls.includes(mallId);
   };
 
   const handleRemoveFromFavorites = async (mallId) => {
     try {
-      const response = await axios.post(
-        `http://127.0.0.1:8000/profile/${savedUsername}/remove_favorite/`, // Новий ендпойнт
+      await axios.post(
+        `http://127.0.0.1:8000/profile/${savedUsername}/remove_favorite/`,
         { mall_id: mallId }
       );
-      console.log(response.data); // Виводимо відповідь сервера в консоль (опціонально)
-
-      // Оновлюємо дані користувача після видалення з обраних
       fetchData();
       fetchMallsData();
     } catch (error) {
       console.error("Помилка при видаленні з обраних:", error);
-      // Обробка помилки (наприклад, повідомлення користувачу)
     }
   };
+
+  const handleDeleteUser = async () => {
+    try {
+      await axios.delete(
+        `http://127.0.0.1:8000/profile/${savedUsername}/delete/`
+      );
+      let temp = ""
+      console.log(savedUsername)
+      localStorage.setItem("username", temp);
+      navigate("/login");
+    } catch (error) {
+      console.error("Помилка при видаленні користувача:", error);
+    }
+  };
+
   return (
-    <div>
+    <div style={{ backgroundColor: "#f4f5f7" }}>
       {userData ? (
         <>
-          {/* <h2 className='Success-Page-Greet'>Успіх!</h2>
-          <p className='Success-Page-Greet'>Ім'я: {userData.first_name}</p>
-          <p className='Success-Page-Greet'>Прізвище: {userData.last_name}</p> */}
-          {/* Відображення інших даних користувача */}
-
           <section className="vh-100" style={{ backgroundColor: "#f4f5f7" }}>
             <div className="container py-5 h-100">
               <div className="row d-flex justify-content-center align-items-center h-100">
@@ -108,22 +100,25 @@ const Profile_menu = () => {
                   <div className="card mb-3" style={{ borderRadius: ".5rem" }}>
                     <div className="row g-0">
                       <div
-                        className="col-md-4 gradient-custom text-center text-white"
+                        className="col-md-4 gradient-custom text-white col-lg-4 d-flex justify-content-center align-items-center"
                         style={{
                           borderTopLeftRadius: ".5rem",
                           borderBottomLeftRadius: ".5rem",
                         }}
                       >
-                        <img
-                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                          alt="Avatar"
-                          className="img-fluid my-5"
-                          style={{ width: "80px" }}
-                        />
-                        {/* <h5>Марія Мельник</h5> */}
-
-                        <i className="far fa-edit mb-5"></i>
+                        <div>
+                          <div className="text-center">
+                            <h5>Ім'я користувача:</h5>
+                          </div>
+                          <div>
+                            <h5>{userData.username}</h5>
+                          </div>
+                          <div>
+                            <i className="far fa-edit mb-5"></i>
+                          </div>
+                        </div>
                       </div>
+
                       <div className="col-md-8">
                         <div className="card-body p-4">
                           <h6>Інформація</h6>
@@ -169,16 +164,21 @@ const Profile_menu = () => {
                               ) : (
                                 <p>Завантаження даних про ТЦ...</p>
                               )}
-                              {/* <p className="text-muted">{userData.fav_malls}</p> */}
                             </div>
                           </div>
-                          <div className=" d-flex justify-content-start">
-                            <a className="btn btn-edit" href="edit_prof.html">
+                          <div className="d-flex justify-content-start">
+                            <Link className="btn btn-edit" to="/edit_profile">
                               Редагувати профіль
-                            </a>
-                            <a className="btn btn-edit" href="login.html">
+                            </Link>
+                            <Link className="btn btn-edit" to="/login">
                               Змінити користувача
-                            </a>
+                            </Link>
+                            <button
+                              className="btn btn-edit-new"
+                              onClick={handleDeleteUser}
+                            >
+                              Видалити користувача
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -192,20 +192,28 @@ const Profile_menu = () => {
       ) : (
         <p>Завантаження даних користувача...</p>
       )}
+      {mallsData &&
+        mallsData.filter((mall) => isMallInFavorites(mall.id)).length > 0 && (
+          <h2 className="favorites-label">Перелік улюблених ТЦ</h2>
+        )}
       {mallsData ? (
         mallsData
           .filter((mall) => isMallInFavorites(mall.id))
           .map((mall) => (
-            <div key={mall.id}>
-              <p style={{ marginTop: "" }}>{mall.name}</p>
-              <p>{mall.address}</p>
-              <button
-                className="add-button"
-                onClick={() => handleRemoveFromFavorites(mall.id)}
-              >
-                Видалити з обраних
-              </button>
-              <hr />
+            <div className="mb-1-1" key={mall.id}>
+              <div className="mall-container">
+                <div className="mall">
+                  <h4>{mall.name}</h4>
+                  <p>{mall.description}</p>
+                  <h3>{mall.address}</h3>
+                  <button
+                    className="add-button"
+                    onClick={() => handleRemoveFromFavorites(mall.id)}
+                  >
+                    Видалити з обраних
+                  </button>
+                </div>
+              </div>
             </div>
           ))
       ) : (

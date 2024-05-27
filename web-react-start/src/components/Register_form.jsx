@@ -32,11 +32,11 @@ const Register_form = () => {
       last_name: formData.Last_name,
       city: getCitiesMap()[formData.City],
       password: formData.password,
-      fav_malls: [], 
+      fav_malls: [],
     };
-    
+
     try {
-      console.log(userData)
+      console.log(userData);
       const response = await axios.post(
         "http://127.0.0.1:8000/create-user/",
         userData
@@ -48,6 +48,11 @@ const Register_form = () => {
       console.error("Error registering user:", error);
       alert("There was an error registering the user. Please try again later.");
     }
+  };
+  const cities = Object.keys(getCitiesMap());
+
+  const handleCityChange = (e) => {
+    setFormData({ ...formData, City: e.target.value });
   };
   return (
     <div>
@@ -101,13 +106,19 @@ const Register_form = () => {
                           {/* <!-- <label className="form-label" for="form2Example11">Username</label> --> */}
                         </div>
                         <div className="form-outline mb-4">
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="City"
+                          <select
+                            className="form-select"
                             id="City"
-                            onChange={handleChange}
-                          />
+                            onChange={handleCityChange}
+                            value={formData.City}
+                          >
+                            <option value="">Виберіть місто</option>
+                            {cities.map((city, index) => (
+                              <option key={index} value={city}>
+                                {city}
+                              </option>
+                            ))}
+                          </select>
                           {/* <!-- <label className="form-label" for="form2Example22">Password</label> --> */}
                         </div>
                         <div className="form-outline mb-4">

@@ -18,9 +18,9 @@
         color: white;
         margin-right: 10px; /* Додайте правий відступ між кнопками */
         margin-bottom: 10px; /* Додайте відступ між рядками */
-        width: 140px;
-        height: 60px; /* Задайте ширину кнопки */
-        font-size: 16px;
+        width: 110px;
+        height: 50px; /* Задайте ширину кнопки */
+        font-size: 12px;
         
     }
     .btn-edit:first-child {
@@ -30,3 +30,40 @@
         background-color: #333; /* Новий колір при наведенні */
         color: white; /* Новий колір тексту при наведенні */
     }
+    .btn-edit-new {
+        background-color: #cc0000;
+        color: white;
+        margin-right: 10px; /* Додайте правий відступ між кнопками */
+        margin-bottom: 10px; /* Додайте відступ між рядками */
+        width: 110px;
+        height: 50px; /* Задайте ширину кнопки */
+        font-size: 12px;
+        
+    }
+    .mall-container {
+        display: flex; /* Вмикаємо Flexbox */
+        flex-direction: column; /* Розміщуємо елементи по вертикалі */
+        align-items: center; /* Центруємо елементи по горизонталі */
+        width: 100%; /* Займаємо всю доступну ширину */
+        margin-bottom: 20px; /* Додаємо відступ знизу */
+      }
+      
+      .mall { /* Стилізуємо самі блоки з ТЦ */
+        background-color: #fff; /* Колір фону */
+        padding: 20px; /* Внутрішні відступи */
+        border-radius: 8px; /* Закруглені кути */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тінь */
+        text-align: center; /* Вирівнювання тексту */
+      } 
+
+      .mb-1-1 { /* Збільшуємо відступ знизу сторінки */
+        margin-bottom: 70px; /* Або інше значення, що вам підходить */
+      }
+      
+      .favorites-label { /* Стилізуємо підпис */
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 20px;
+        margin-left: 90px; /* Відступ між підписом і ТЦ */
+      }
+        

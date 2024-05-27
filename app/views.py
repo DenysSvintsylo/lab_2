@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from .models import CustomUser
 from .models import Mall
+from .models import City
 from .serializers import CustomUserSerializer
 from .serializers import MallSerializer
 
@@ -137,3 +138,55 @@ class RemoveFavoriteMall(APIView):
         except Mall.DoesNotExist:
             return Response({"detail": "Mall not found"}, status=404)
 
+
+class UpdateUserProfile(APIView):
+    def put(self, request, username):
+        try:
+            user = get_object_or_404(CustomUser, username=username)
+        except CustomUser.DoesNotExist:
+            return Response({"detail": "Користувач не знайдений."}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = CustomUserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            # Оновлення міста:
+            city_id = request.data.get('city')  # Використовуємо request.data замість serializer.validated_data
+            if city_id:
+                try:
+                    # Отримуємо об'єкт міста за його ID
+                    city = City.objects.get(id=city_id)
+                    user.city = city  # Оновлюємо поле city об'єкта user
+                except City.DoesNotExist:
+                    return Response({"detail": "Місто не знайдено."}, status=status.HTTP_400_BAD_REQUEST)
+
+            user.first_name = serializer.validated_data.get('first_name', user.first_name)
+            user.last_name = serializer.validated_data.get('last_name', user.last_name)
+            user.username = serializer.validated_data.get('username', user.username)
+            user.save()  # Зберігаємо зміни в об'єкті user
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class FilteredMallsView(APIView):
+    def get(self, request):
+        name = request.query_params.get('name', None)
+        if name:
+            malls = Mall.objects.filter(name__icontains=name)
+        else:
+            malls = Mall.objects.all()
+        
+        serializer = MallSerializer(malls, many=True)
+        return Response(serializer.data)
+    
+class DeleteUser(APIView):
+    def delete(self, request, username):
+        print(username)
+        try:
+            
+            # Знаходимо користувача за його username
+            user = get_object_or_404(CustomUser, username=username)
+            # Видаляємо користувача
+            user.delete()
+            return Response({"message": "Користувача успішно видалено"}, status=status.HTTP_204_NO_CONTENT)
+        except CustomUser.DoesNotExist:
+            return Response({"message": "Користувача не знайдено"}, status=status.HTTP_404_NOT_FOUND)
+    

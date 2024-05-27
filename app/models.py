@@ -13,7 +13,6 @@ class Mall(models.Model):
     address = models.CharField(max_length=255, null=True)
     description = models.TextField(null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
-
     def __str__(self):
         return self.name
 

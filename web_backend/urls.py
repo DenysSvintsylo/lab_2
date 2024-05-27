@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from app.viewsets import MallViewSet, CitylViewSet, CustomUserViewSet
-from app.views import ValidateLogin, CreateCustomUser, GetUsersInfo, GetUserInfoByUsername, GetMallsInfoByID, CreateMall, AddFavoriteMall, RemoveFavoriteMall
+from app.views import ValidateLogin, CreateCustomUser, GetUsersInfo, GetUserInfoByUsername, GetMallsInfoByID, CreateMall, AddFavoriteMall, RemoveFavoriteMall, UpdateUserProfile, FilteredMallsView, DeleteUser
 
 router = DefaultRouter()
 router.register(r'malls', MallViewSet, basename='mall')
@@ -36,4 +36,8 @@ urlpatterns = [
     path('profile/<str:username>/', GetUserInfoByUsername.as_view(), name='get_user_info_by_username'),
     path('profile/<str:username>/add_favorite/', AddFavoriteMall.as_view(), name='add_favorite_mall'),
     path('profile/<str:username>/remove_favorite/', RemoveFavoriteMall.as_view(), name='remove_favorite_mall'),
+    path('profile/<str:username>/modify/', UpdateUserProfile.as_view(), name='update_user_profile'),
+    path('malls/filter/', FilteredMallsView.as_view(), name='filtered_malls'),
+    path('profile/<str:username>/delete/', DeleteUser.as_view(), name='delete_user'),
+    
 ]
