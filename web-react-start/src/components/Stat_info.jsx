@@ -33,7 +33,6 @@ const Stat_info = () => {
       const response = await axios.get(`http://127.0.0.1:8000/api/cities/`);
       setCityData(response.data);
     } catch (error) {
-      console.error("Помилка при отриманні даних про міста:", error);
     }
   };
 

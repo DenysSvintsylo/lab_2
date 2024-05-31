@@ -36,7 +36,6 @@ const Register_form = () => {
     };
 
     try {
-      console.log(userData);
       const response = await axios.post(
         "http://127.0.0.1:8000/create-user/",
         userData

@@ -10,6 +10,7 @@ const GlobalHeader = () => {
             <li className="nav-item"><Link className="nav-link" to="/home">Дім</Link></li>
             <li className="nav-item"> <Link className="nav-link" to="/profile">Профіль</Link></li>
             <li className="nav-item"> <Link className="nav-link" to="/statistics">Статистика</Link></li>
+            <li className="nav-item"> <Link className="nav-link" to="/chat">Підтримка</Link></li>
         </ul>
     </div>
   )

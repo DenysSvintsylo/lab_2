@@ -10,7 +10,7 @@ import RegisterPage from './components/RegisterPage';
 import ProfilePage from './components/ProfilePage';
 import Edit_form from './components/Edit_form';
 import Stat_page from './components/Stat_page';
-
+import WebSocketComponent from './components/WebSocket'
 
 function App() {
   return (
@@ -27,6 +27,7 @@ function App() {
             <Route path='/profile' element={<ProfilePage />} />
             <Route path='/edit_profile' element={<Edit_form />} />
             <Route path='/statistics' element={<Stat_page />} />
+            <Route path='/chat' element={<WebSocketComponent />} />
           </Routes>
         </div>
       </div>
